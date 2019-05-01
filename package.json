@@ -1,10 +1,10 @@
 {
   "name": "quietjs-bundle",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A utility to bundle quiet-js in one file",
   "main": "index.js",
   "files": [
-    "gulpfile.js",
+    "bundler.js",
     "index.d.ts"
   ],
   "scripts": {
