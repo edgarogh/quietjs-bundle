@@ -1,6 +1,6 @@
 {
   "name": "quietjs-bundle",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A utility to bundle quiet-js in one file",
   "main": "index.js",
   "files": [
@@ -9,7 +9,7 @@
   ],
   "scripts": {
     "bundle": "node bundler",
-    "postinstall": "bundle",
+    "postinstall": "run-s bundle",
     "testbundle": "run-s bundle testbundle:browserify",
     "testbundle:browserify": "browserify test/index.js -o test/b.js"
   },
