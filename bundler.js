@@ -50,6 +50,33 @@ function bufferToLitteral(buffer) {
         + '`), c => c.charCodeAt(0))';
 }
 
+/**
+ * Replaces the body of a function, given its name
+ * @param {string} code - Original code where the function is written
+ * @param {string} name - Name of the function, or any text that precedes the 
+ * first `{` of the function body
+ * @param {string} replacement - New content for the function body
+ * @returns {string} The new `code` with the modified function
+ */
+function replaceFunctionBody(code, name, replacement) {
+    let depth = 0;
+    let start = -1;
+    let i;
+    for (i = code.indexOf(name); ; i++) {
+        if (code[i] === '{') {
+            if (depth === 0) start = i + 1;
+            depth++;
+        };
+        if (code[i] === '}') {
+            depth--;
+            if (!depth) break;
+        }
+    }
+
+    const end = i;
+    return code.substring(0, start) + replacement + code.substring(end);
+}
+
 async function bundle() {
     log('Downloading requirements...');
     await downloadRequirements();
@@ -58,9 +85,9 @@ async function bundle() {
 
     let code = [
         `let mem=${bufferToLitteral(requirements.quietEsMem)}`,
-        requirements.quietBase.replace(setProfilesDef, `onProfilesFetch(${'\`' + requirements.quietProfiles + '\`'})`),
+        replaceFunctionBody(requirements.quietBase, 'setProfilesPrefix', `onProfilesFetch(${'\`' + requirements.quietProfiles + '\`'})`),
         `Quiet.init({profilesPrefix: 'https://quiet.github.io/quiet-js/javascripts/', memoryInitializerPrefix: 'https://quiet.github.io/quiet-js/javascripts/'})`,
-        requirements.quietEs.replace(readAsyncDef, 'Module["readAsync"]=function readAsync(url,onload,onerror){onload(mem);}'),
+        replaceFunctionBody(requirements.quietEs, 'Module["readAsync"]', 'onload(mem);'),
         `Quiet.Module=Module`,
         `module.exports=Quiet`
     ].join(';\n');
@@ -70,36 +97,3 @@ async function bundle() {
 }
 
 bundle().catch(e => { throw e });
-
-const setProfilesDef = `if (profilesFetched) {
-            return;
-        }
-        if (!prefix.endsWith("/")) {
-            prefix += "/";
-        }
-        var profilesPath = prefix + "quiet-profiles.json";
-
-        var fetch = new Promise(function(resolve, reject) {
-            var xhr = new XMLHttpRequest();
-            xhr.overrideMimeType("application/json");
-            xhr.open("GET", profilesPath, true);
-            xhr.onload = function() {
-                if (this.status >= 200 && this.status < 300) {
-                    resolve(this.responseText);
-                } else {
-                    reject(this.statusText);
-                }
-            };
-            xhr.onerror = function() {
-                reject(this.statusText);
-            };
-            xhr.send();
-        });
-
-        fetch.then(function(body) {
-            onProfilesFetch(body);
-        }, function(err) {
-            fail("fetch of quiet-profiles.json failed: " + err);
-        });`;
-
-const readAsyncDef = `Module["readAsync"]=function readAsync(url,onload,onerror){var xhr=new XMLHttpRequest;xhr.open("GET",url,true);xhr.responseType="arraybuffer";xhr.onload=function xhr_onload(){if(xhr.status==200||xhr.status==0&&xhr.response){onload(xhr.response)}else{onerror()}};xhr.onerror=onerror;xhr.send(null)}`;
