@@ -14,13 +14,13 @@
     "testbundle:browserify": "browserify test/index.js -o test/b.js"
   },
   "keywords": [
+    "bundle",
+    "bundler",
+    "libquiet",
     "quietjs",
     "quiet.js",
     "quiet-js",
-    "quiet",
-    "js",
-    "bundle",
-    "bundler"
+    "quiet"
   ],
   "author": "Edgar Onghena",
   "license": "MIT",
