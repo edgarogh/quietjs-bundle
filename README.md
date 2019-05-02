@@ -28,9 +28,9 @@ npm i quietjs-bundle
 Installing the module will build the bundle a first time. If you want to rebuild it, navigate to `node_modules/quietjs-bundle` in your shell and run `npm run-script bundle`.
 
 ## TODO
- * More size-efficient `quiet-emscripten.js.mem` bundling (currently stored as a string litteral using base64)
- * Control over the version of quiet-js that is being downloaded (currently the latest `#master` commit, potentially unstable)
- * Document the TypeScript definitions
+ [ ] More size-efficient `quiet-emscripten.js.mem` bundling (currently stored as a string litteral using base64)
+ [ ] Control over the version of quiet-js that is being downloaded (currently the latest `#master` commit, potentially unstable)
+ [x] Document the TypeScript definitions
 
 ## License
 This project itself is licensed under the MIT license. However, this tool bundles code from different sources that each have their own license. You are entirely responsible for every bit of licensed code that can end up in the final script.

@@ -5,7 +5,8 @@
   "main": "index.js",
   "files": [
     "bundler.js",
-    "index.d.ts"
+    "index.d.ts",
+    "LICENSE-3RD-PARTY"
   ],
   "scripts": {
     "bundle": "node bundler",
