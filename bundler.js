@@ -1,7 +1,6 @@
 const { default: chalk } = require('chalk');
 const fetch = require('node-fetch');
 const fs = require('fs');
-const progress = require('cli-progress');
 
 const moduleName = require('./package.json').name;
 
@@ -17,14 +16,17 @@ const requirements = {
 const log = console.log.bind(console, chalk.bgBlack.white(moduleName));
 
 async function downloadRequirements() {
-    const bar = new progress.Bar({
-        format: `[{bar}] {value}/{total} {url}`,
-        stopOnComplete: true,
-        clearOnComplete: true
-    }, progress.Presets.shades_classic);
+    const total = Object.keys(requirements).length;
+    let step = -1;
 
-    bar.start(Object.keys(requirements).length, 0);
-    
+    function incrementProgress() {
+        process.stdout.clearLine();
+        process.stdout.cursorTo(0);
+        process.stdout.write(Math.ceil(100 * (++step) / total) + '%');
+    }
+
+    incrementProgress();
+
     return Promise.all(Object.keys(requirements).map(async key => {
         const url = requirements[key];
         const res = await fetch(url);
@@ -34,9 +36,7 @@ async function downloadRequirements() {
             : res.text()
         );
 
-        bar.increment(1, {
-            url
-        });
+        incrementProgress();
     }));
 }
 
@@ -79,6 +79,7 @@ function replaceFunctionBody(code, name, replacement) {
 async function bundle() {
     log('Downloading requirements...');
     await downloadRequirements();
+    console.log();
 
     log('Bundling...');
 
