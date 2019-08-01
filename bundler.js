@@ -1,7 +1,6 @@
 const { default: chalk } = require('chalk');
 const fetch = require('node-fetch');
 const fs = require('fs');
-const lafy = require('lafy');
 const progress = require('cli-progress');
 
 const moduleName = require('./package.json').name;
@@ -92,7 +91,9 @@ async function bundle() {
         `module.exports=Quiet`
     ].join(';\n');
 
-    await lafy(cb => fs.writeFile('_bundle.js', code, cb));
+    await new Promise((resolve, reject) =>
+        fs.writeFile('_bundle.js', code, (err) => err ? reject() : resolve())
+    );
     log(chalk.greenBright('Finished ! Module ready to use !'))
 }
 
