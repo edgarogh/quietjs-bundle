@@ -1,6 +1,6 @@
 {
   "name": "quietjs-bundle",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "A utility to bundle quiet-js in one file",
   "main": "index.js",
   "files": [
