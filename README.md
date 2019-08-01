@@ -29,7 +29,7 @@ Installing the module will build the bundle a first time. If you want to rebuild
 
 ## TODO
  - [ ] More size-efficient `quiet-emscripten.js.mem` bundling (currently stored as a string literal using base64)
- - [ ] Control over the version of quiet-js that is being downloaded (currently the latest `#master` commit, potentially unstable)
+ - [x] Download specific `quiet-js` commit instead of latest for stability
  - [x] Document the TypeScript definitions
 
 ## License

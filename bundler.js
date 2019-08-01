@@ -4,7 +4,7 @@ const fs = require('fs');
 
 const moduleName = require('./package.json').name;
 
-const quietRepo = 'https://raw.githubusercontent.com/quiet/quiet-js/master/';
+const quietRepo = 'https://raw.githubusercontent.com/quiet/quiet-js/708084716f20d21c420df18ed8812a72105e8783/';
 
 const requirements = {
     quietEs: quietRepo + 'quiet-emscripten.js',
