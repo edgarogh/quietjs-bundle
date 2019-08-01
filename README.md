@@ -28,7 +28,7 @@ npm i quietjs-bundle
 Installing the module will build the bundle a first time. If you want to rebuild it, navigate to `node_modules/quietjs-bundle` in your shell and run `npm run-script bundle`.
 
 ## TODO
- - [ ] More size-efficient `quiet-emscripten.js.mem` bundling (currently stored as a string litteral using base64)
+ - [ ] More size-efficient `quiet-emscripten.js.mem` bundling (currently stored as a string literal using base64)
  - [ ] Control over the version of quiet-js that is being downloaded (currently the latest `#master` commit, potentially unstable)
  - [x] Document the TypeScript definitions
 

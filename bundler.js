@@ -44,7 +44,7 @@ async function downloadRequirements() {
 /**
  * @param {Buffer} buffer
  */
-function bufferToLitteral(buffer) {
+function bufferToLiteral(buffer) {
     return 'Uint8Array.from(atob(`'
         + buffer.toString('base64')
         + '`), c => c.charCodeAt(0))';
@@ -84,7 +84,7 @@ async function bundle() {
     log('Bundling...');
 
     let code = [
-        `let mem=${bufferToLitteral(requirements.quietEsMem)}`,
+        `let mem=${bufferToLiteral(requirements.quietEsMem)}`,
         replaceFunctionBody(requirements.quietBase, 'setProfilesPrefix', `onProfilesFetch(${'\`' + requirements.quietProfiles + '\`'})`),
         `Quiet.init({profilesPrefix: 'https://quiet.github.io/quiet-js/javascripts/', memoryInitializerPrefix: 'https://quiet.github.io/quiet-js/javascripts/'})`,
         replaceFunctionBody(requirements.quietEs, 'Module["readAsync"]', 'onload(mem);'),
