@@ -4,7 +4,7 @@
 
 const quiet = require('../');
 
-quiet.addReadyCallback(
+document.querySelector('button').onclick = () => quiet.addReadyCallback(
     function success() {
 
         quiet.receiver({
