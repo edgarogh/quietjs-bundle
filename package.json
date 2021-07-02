@@ -5,7 +5,7 @@
   "main": "index.js",
   "files": [
     "bundler.js",
-    "index.d.ts",
+    "template.index.d.ts",
     "LICENSE-3RD-PARTY"
   ],
   "scripts": {

@@ -1,4 +1,5 @@
 _bundle.js
+index.d.ts
 test/b.js
 
 # Created by https://www.gitignore.io/api/osx,node,linux,windows

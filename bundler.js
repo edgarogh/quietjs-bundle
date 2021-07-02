@@ -1,6 +1,10 @@
 const chalk = require('chalk');
 const fetch = require('node-fetch');
 const fs = require('fs');
+const util = require('util');
+
+const fsWriteFile = util.promisify(fs.writeFile);
+const fsReadFile = util.promisify(fs.readFile);
 
 const moduleName = require('./package.json').name;
 
@@ -92,9 +96,17 @@ async function bundle() {
         `module.exports=Quiet`
     ].join(';\n');
 
-    await new Promise((resolve, reject) =>
-        fs.writeFile('_bundle.js', code, (err) => err ? reject() : resolve())
+    const profileNames = Object.keys(JSON.parse(requirements.quietProfiles));
+    log(`${profileNames.length} profiles names found in 'quiet-profiles.json', creating 'index.d.ts'`);
+    const indexDTs = await fsReadFile('template.index.d.ts', 'utf8');
+    await fsWriteFile(
+        'index.d.ts',
+        indexDTs.replace(
+            /type ProfileName = ['a-zA-Z0-9| ]*;/, `type ProfileName = ${profileNames.map((p) => `'${p}'`).join(' | ')};`
+        )
     );
+
+    await fsWriteFile('_bundle.js', code);
     log(chalk.greenBright('Finished ! Module ready to use !'))
 }
 

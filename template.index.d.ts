@@ -27,7 +27,7 @@ interface Quiet {
      * Add a callback to be called when Quiet is ready for use, e.g. when 
      * transmitters and receivers can be created
      * @param {function} success - The user function which will be called
-     * @param {onError} [error] - User errback function
+     * @param {function} [error] - User errback function
      * @example
      * addReadyCallback(function() { console.log("ready!"); });
      */
@@ -71,7 +71,9 @@ export = quiet;
 
 // Common
 
-type Profile = string | Record<string, any>;
+type ProfileName = string;
+
+type Profile = ProfileName | Record<string, any>;
 
 // Transmitter
 
