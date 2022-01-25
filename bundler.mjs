@@ -1,12 +1,9 @@
-const chalk = require('chalk');
-const fetch = require('node-fetch');
-const fs = require('fs');
-const util = require('util');
+import { encode as encodeBase64 } from 'base64-arraybuffer';
+import chalk from 'chalk';
+import { writeFile as fsWriteFile, readFile as fsReadFile } from 'fs/promises';
+import fetch from 'node-fetch';
 
-const fsWriteFile = util.promisify(fs.writeFile);
-const fsReadFile = util.promisify(fs.readFile);
-
-const moduleName = require('./package.json').name;
+const { name: moduleName } = JSON.parse(await fsReadFile('package.json', 'utf-8'));
 
 const quietRepo = 'https://raw.githubusercontent.com/quiet/quiet-js/72782542a41f1b615a02c2ab43a0edb56edb6ce4/';
 
@@ -36,7 +33,7 @@ async function downloadRequirements() {
         const res = await fetch(url);
 
         requirements[key] = await (url.endsWith('mem')
-            ? res.buffer()
+            ? res.arrayBuffer()
             : res.text()
         );
 
@@ -49,7 +46,7 @@ async function downloadRequirements() {
  */
 function bufferToLiteral(buffer) {
     return 'Uint8Array.from(atob(`'
-        + buffer.toString('base64')
+        + encodeBase64(buffer)
         + '`), c => c.charCodeAt(0))';
 }
 
