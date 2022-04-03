@@ -1,7 +1,8 @@
 # [**quietjs-bundle**](https://www.npmjs.com/package/quietjs-bundle)
 
-[![GitHub license](https://img.shields.io/github/license/edgarogh/quietjs-bundle.svg)](https://github.com/edgarogh/quietjs-bundle/blob/master/LICENSE)
-[![David](https://img.shields.io/david/edgarogh/quietjs-bundle.svg)](https://www.npmjs.com/package/quietjs-bundle)
+[![License: MIT](https://img.shields.io/npm/l/quietjs-bundle)](https://github.com/edgarogh/quietjs-bundle/blob/master/LICENSE)
+[![NPM latests version](https://img.shields.io/npm/v/quietjs-bundle)](https://www.npmjs.com/package/quietjs-bundle)
+[![Libraries.io dependency status for latest release](https://img.shields.io/librariesio/release/npm/quietjs-bundle)](https://github.com/edgarogh/quietjs-bundle/blob/master/package.json)
 
 > quietjs-bundle is a ready-to-use bundled version of [quiet-js](https://github.com/quiet/quiet-js) that you can require in CommonJS/TypeScript-based web projects
 > ```javascript
@@ -28,9 +29,9 @@ npm i quietjs-bundle
 Installing the module will build the bundle a first time. If you want to rebuild it, navigate to `node_modules/quietjs-bundle` in your shell and run `npm run-script bundle`.
 
 ## TODO
- - [ ] More size-efficient `quiet-emscripten.js.mem` bundling (currently stored as a string literal using base64)
- - [x] Download specific `quiet-js` commit instead of latest for stability
- - [x] Document the TypeScript definitions
+  * [ ] More size-efficient `quiet-emscripten.js.mem` bundling (currently stored as a string literal using base64)
+  * [x] Download specific `quiet-js` commit instead of latest for stability
+  * [x] Document the TypeScript definitions
 
 ## License
 This project itself is licensed under the MIT license. However, this tool bundles code from different sources that each have their own license. You are entirely responsible for every bit of licensed code that can end up in the final script.
