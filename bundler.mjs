@@ -2,6 +2,7 @@ import { encode as encodeBase64 } from 'base64-arraybuffer';
 import chalk from 'chalk';
 import { writeFile as fsWriteFile, readFile as fsReadFile } from 'fs/promises';
 import fetch from 'node-fetch';
+import readline from 'readline';
 
 const { name: moduleName } = JSON.parse(await fsReadFile('package.json', 'utf-8'));
 
@@ -21,8 +22,8 @@ async function downloadRequirements() {
     let step = -1;
 
     function incrementProgress() {
-        process.stdout.clearLine();
-        process.stdout.cursorTo(0);
+        readline.clearLine(process.stdout, 0);
+        readline.cursorTo(process.stdout, 0)
         process.stdout.write(Math.ceil(100 * (++step) / total) + '%');
     }
 
