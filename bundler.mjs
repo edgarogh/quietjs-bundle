@@ -67,7 +67,7 @@ function replaceFunctionBody(code, name, replacement) {
         if (code[i] === '{') {
             if (depth === 0) start = i + 1;
             depth++;
-        };
+        }
         if (code[i] === '}') {
             depth--;
             if (!depth) break;
