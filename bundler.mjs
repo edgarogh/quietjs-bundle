@@ -1,7 +1,6 @@
 import { encode as encodeBase64 } from 'base64-arraybuffer';
 import chalk from 'chalk';
 import { writeFile as fsWriteFile, readFile as fsReadFile } from 'fs/promises';
-import fetch from 'node-fetch';
 import readline from 'readline';
 
 const { name: moduleName } = JSON.parse(await fsReadFile('package.json', 'utf-8'));
